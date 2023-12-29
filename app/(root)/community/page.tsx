@@ -18,6 +18,8 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
+  // delay response
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   return (
     <>
@@ -52,8 +54,8 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       </section>
       <div className='mt-10'>
         <Pagination
-          isNext={result.isNext}
           pageNumber={searchParams?.page ? +searchParams.page : 1}
+          isNext={result.isNext}
         />
       </div>
     </>

@@ -1,16 +1,17 @@
-import AnswersTab from '@/components/shared/AnswersTab';
-import ProfileLink from '@/components/shared/ProfileLink';
-import QuestionTab from '@/components/shared/QuestionTab';
-import Stats from '@/components/shared/Stats';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getUserInfo } from '@/lib/actions/user.action';
-import { getJoinedDate } from '@/lib/utils';
 import { URLProps } from '@/types';
 import { SignedIn, auth } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
 import React from 'react';
+import { getJoinedDate } from '@/lib/utils';
+import ProfileLink from '@/components/shared/ProfileLink';
+import Stats from '@/components/shared/Stats';
+import QuestionTab from '@/components/shared/QuestionTab';
+import AnswersTab from '@/components/shared/AnswersTab';
 
 const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth();
@@ -27,6 +28,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
             height={140}
             className='rounded-full object-cover'
           />
+
           <div className='mt-3'>
             <h2 className='h2-bold text-dark100_light900'>
               {userInfo.user.name}
@@ -34,6 +36,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
             <p className='paragraph-regular text-dark200_light800'>
               @{userInfo.user.username}
             </p>
+
             <div className='mt-5 flex flex-wrap items-center justify-start gap-5'>
               {userInfo.user.portfolioWebsite && (
                 <ProfileLink
@@ -42,17 +45,20 @@ const Page = async ({ params, searchParams }: URLProps) => {
                   title='Portfolio'
                 />
               )}
+
               {userInfo.user.location && (
                 <ProfileLink
                   imgUrl='/assets/icons/location.svg'
                   title={userInfo.user.location}
                 />
               )}
+
               <ProfileLink
                 imgUrl='/assets/icons/calendar.svg'
                 title={getJoinedDate(userInfo.user.joinedAt)}
               />
             </div>
+
             {userInfo.user.bio && (
               <p className='paragraph-regular text-dark400_light800 mt-8'>
                 {userInfo.user.bio}
@@ -65,10 +71,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
           <SignedIn>
             {clerkId === userInfo.user.clerkId && (
               <Link href='/profile/edit'>
-                <Button
-                  className='paragraph-medium btn-secondary text-dark300_light900
-                min-h-[46px] min-w-[175px] px-4 py-3'
-                >
+                <Button className='paragraph-medium btn-secondary text-dark300_light900 min-h-[46px] min-w-[175px] px-4 py-3'>
                   Edit Profile
                 </Button>
               </Link>

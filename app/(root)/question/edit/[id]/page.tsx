@@ -3,18 +3,14 @@ import { getQuestionById } from '@/lib/actions/question.action';
 import { getUserById } from '@/lib/actions/user.action';
 import { ParamsProps } from '@/types';
 import { auth } from '@clerk/nextjs';
-import React from 'react';
 
-const page = async ({ params }: ParamsProps) => {
+const Page = async ({ params }: ParamsProps) => {
   const { userId } = auth();
 
   if (!userId) return null;
 
   const mongoUser = await getUserById({ userId });
-
   const result = await getQuestionById({ questionId: params.id });
-
-  console.log(result);
 
   return (
     <>
@@ -31,4 +27,4 @@ const page = async ({ params }: ParamsProps) => {
   );
 };
 
-export default page;
+export default Page;
